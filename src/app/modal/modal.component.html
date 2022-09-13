@@ -1,0 +1,77 @@
+<h2 mat-dialog-title>Add Product Form</h2>
+<div mat-dialog-content>
+  <form [formGroup]="productForm" (ngSubmit)="onAddProduct()">
+    <mat-form-field appearance="outline">
+      <mat-label>Product ID</mat-label>
+      <input matInput type="number" placeholder="ID" formControlName="id" />
+      <mat-error>Id Number Should be Given!</mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Product Name</mat-label>
+      <input matInput type="text" placeholder="Name" formControlName="name" />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Product Category</mat-label>
+      <mat-select placeholder="Category" formControlName="category">
+        <mat-option *ngFor="let product of productCategory" [value]="product">
+          {{ product }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Date</mat-label>
+      <input
+        matInput
+        [matDatepicker]="picker"
+        placeholder="Date"
+        formControlName="date"
+      />
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+
+    <mat-label>Product Quality</mat-label>
+    <mat-radio-group class="example-radio-group" formControlName="quality">
+      <mat-radio-button *ngFor="let quality of qualities" [value]="quality">{{
+        quality
+      }}</mat-radio-button>
+    </mat-radio-group>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Product Price</mat-label>
+      <input
+        matInput
+        type="number"
+        placeholder="Price"
+        formControlName="price"
+      />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Comment</mat-label>
+      <textarea
+        matInput
+        type="text"
+        placeholder="Comment"
+        row="6"
+        formControlName="comment"
+      ></textarea>
+    </mat-form-field>
+  </form>
+</div>
+<div mat-dialog-actions fxlayout fxLayoutAlign="flex-end" fxLayoutGap="2px">
+  <button type="button" mat-raised-button color="warn" mat-dialog-close>
+    Cancel
+  </button>
+  <button
+    type="submit"
+    mat-raised-button
+    mat-dialog-close
+    color="accent"
+    (click)="onAddProduct()"
+    [disabled]="!productForm.valid"
+  >
+    {{ editMode ? "Update" : "Save" }}
+  </button>
+</div>
